@@ -22,7 +22,7 @@ GRAPHQL_URL = "https://leetcode.com/graphql"
 DEFAULT_OUTPUT_DIR = Path("leetcode_submissions")
 MANIFEST_NAME = ".submission_index.json"
 SUBMISSION_PAGE_SIZE = 20
-ENV_FILE_NAME = ".env"
+ENV_FILE_NAME = ".env"  # you can change this if need be, e.g .env.local like that sha
 
 SUBMISSION_LIST_QUERY = """
 query submissionList($offset: Int!, $limit: Int!) {
@@ -120,7 +120,7 @@ LANGUAGE_EXTENSIONS = {
     "swift": ".swift",
     "ts": ".ts",
     "typescript": ".ts",
-}
+}   # that should be all.
 
 SAFE_FILENAME_PATTERN = re.compile(r"[^A-Za-z0-9._-]+")
 
@@ -143,7 +143,7 @@ class LeetCodeDownloader:
         leetcode_session: str,
         csrftoken: str,
         output_dir: Path | str = DEFAULT_OUTPUT_DIR,
-        request_delay: float = 2.0,
+        request_delay: float = 2.0, # made this 2 secs because of rate limiting for cracked devs w 500+ submissions
         timeout: float = 30.0,
         session: Session | None = None,
     ) -> None:
@@ -154,7 +154,7 @@ class LeetCodeDownloader:
 
         self.output_dir = Path(output_dir)
         self.manifest_path = self.output_dir / MANIFEST_NAME
-        self.request_delay = max(request_delay, 0.0)
+        self.request_delay = max(request_delay, 0.5)
         self.timeout = timeout
         self.session = session or requests.Session()
 
